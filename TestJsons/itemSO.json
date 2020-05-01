@@ -1,0 +1,11 @@
+[
+  {
+    "emailId": "string",
+    "itemsList": [
+      {
+        "itemName": "string",
+        "quantity": 0
+      }
+    ]
+  }
+]

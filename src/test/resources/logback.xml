@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="LOG_DIR" value="logs" />
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread])
+				%highlight(%-5level)
+				%logger{36}.%M - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="SAVE-TO-FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/log.log</file>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level
+				%logger{36}.%M - %msg%n
+			</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/archived/log_%d{dd-MM-yyyy}_%i.log
+			</fileNamePattern>
+			<maxFileSize>5MB</maxFileSize>
+			<maxHistory>100</maxHistory>
+			<totalSizeCap>500MB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+
+	<springProfile name="cloud">
+		<root level="info">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</root>
+		<logger name="com.stc.camunda" immediateFlush="true"
+			additivity="false" append="false" level="debug">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</logger>
+	</springProfile>
+
+	<springProfile name="sit">
+		<root level="info">
+		<appender-ref ref="STDOUT" />
+			<appender-ref ref="SAVE-TO-FILE" />
+		</root>
+		<logger name="com.stc.camunda" immediateFlush="true"
+			additivity="false" append="false" level="debug">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</logger>
+	</springProfile>
+	<springProfile name="uat">
+		<root level="info">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</root>
+		<logger name="com.stc.camunda" immediateFlush="true"
+			additivity="false" append="false" level="debug">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</logger>
+	</springProfile>
+	<springProfile name="wdev">
+		<root level="info">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</root>
+		<logger name="com.stc.camunda" immediateFlush="true"
+			additivity="false" append="false" level="debug">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</logger>
+	</springProfile>
+	<springProfile name="prod">
+		<root level="info">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</root>
+		<logger name="com.stc.camunda" immediateFlush="true"
+			additivity="false" append="false" level="debug">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</logger>
+	</springProfile>
+	<springProfile name="prod3amali">
+		<root level="info">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</root>
+		<logger name="com.stc.camunda" immediateFlush="true"
+			additivity="false" append="false" level="debug">
+			<appender-ref ref="SAVE-TO-FILE" />
+		</logger>
+	</springProfile>
+</configuration>
